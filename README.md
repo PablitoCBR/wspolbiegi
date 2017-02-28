@@ -1,2 +1,5 @@
-# wspolbiegi
-Programowanie wspolbiezne
+# Programowanie współbieżne
+Programy z przedmiotu
+
+1. Lab1 - ARZĄDZANIE PROCESAMI I KOMUNIKACJA PRZEZ WSPÓŁDZIELONE PLIKI W PROGRAMACH (BASH)
+2. Lab2 - KOMUNIKACJA PRZEZ WSPÓŁDZIELONE PLIKI W PROGRAMACH (Język C)
