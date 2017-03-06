@@ -1,5 +1,5 @@
 # Programowanie współbieżne
 Programy z przedmiotu
 
-1. Lab1 - ARZĄDZANIE PROCESAMI I KOMUNIKACJA PRZEZ WSPÓŁDZIELONE PLIKI W PROGRAMACH (BASH)
-2. Lab2 - KOMUNIKACJA PRZEZ WSPÓŁDZIELONE PLIKI W PROGRAMACH (Język C)
+1. [Lab1 - ZARZĄDZANIE PROCESAMI I KOMUNIKACJA PRZEZ WSPÓŁDZIELONE PLIKI W PROGRAMACH (BASH)](https://github.com/pcendrowski/wspolbiegi/tree/master/lab1)
+2. [Lab2 - KOMUNIKACJA PRZEZ WSPÓŁDZIELONE PLIKI W PROGRAMACH (Język C)](https://github.com/pcendrowski/wspolbiegi/tree/master/lab2)
