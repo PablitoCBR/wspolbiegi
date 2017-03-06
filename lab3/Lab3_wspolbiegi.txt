@@ -1,0 +1,56 @@
+PROSTE MECHANIZMY KOORDYNACJI PROCESÓW W BASH'U
+
+1.  Wypróbowaæ dzia³anie pary przyk³adowych skryptów za³¹czonych do Wyk³adu 6:
+
+      ojciec
+
+    declare -i x y
+    echo -n "Podaj liczbe calkowita: "
+    read x
+    syn $x &
+    y=x*x
+    wait $!
+    y=y+$?
+    echo "Wynik: $y"
+    exit 0
+
+      syn
+
+    declare -i p
+    p=$1
+    p=p*p*p
+    exit $p
+
+    (powy¿sza para skryptów realizuje obliczenie wartoœci wielomianu x*x + x*x*x
+    przy warunku, ¿e nie zostanie przekroczony zakres obliczeniowy dla liczb
+    naturalnych jednobajtowych, czyli 0, ..., 255).
+
+2.  Wczytaæ liczby naturalne n, k (0<=k<=n<=5) i obliczyæ wartoœæ dwumianu
+    Newtona dla danych (n, k) metod¹ wspó³bie¿nego obliczenia trzech silni:
+
+    ...
+    silnia n &
+    ...
+    silnia k &
+    ...
+    silnia $((n-k)) &
+    ...                      # zapamiêtaæ PID-y uruchomionych trzech procesów
+    wait ...
+    ...
+    wait ...
+    ...
+    wait ...
+    ...
+
+3.  (PODLEGA ODBIOROWI - CZAS 2 TYGODNIE)
+
+    Utworzyæ skrypt o dwóch argumentach: szukaj plik katalog , który (podobnie,
+    jak polecenie find) znajduje wszystkie wyst¹pienia pliku o podanej nazwie
+    w poddrzewie katalogów o podanej nazwie œcie¿kowej korzenia. Skrypt powinien
+    dzia³aæ na zasadzie wspó³bie¿nych, rekurencyjnych wywo³añ dla wszystkich
+    podkatalogów danego katalogu i powinien wykorzystywaæ wy¿ej omówiony
+    mechanizm exit - wait do przekazywania informacji od procesów potomnych do
+    rodzicielskich.
+
+    Uwaga: w przypadku, gdy skrypt nie znajdzie ani jednego wyst¹pienia danego
+           pliku, powinien wyœwietliæ komunikat "Nie znaleziono", ale TYLKO RAZ.
