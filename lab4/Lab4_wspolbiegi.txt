@@ -1,0 +1,38 @@
+KOLEJKI FIFO I SYGNA£Y W BASH'U
+
+1. Za pomoc¹ polecenia o postaci mkfifo nazwa utworzyæ w swoim katalogu domowym
+   dwie kolejki FIFO. Przy ich u¿yciu przeprowadziæ rozmowê: a) pomiêdzy dwoma
+   oknami tekstowymi na swoim ekranie; b) pomiêdzy oknami dwóch ró¿nych
+   u¿ytkowników na dwóch ró¿nych monitorach (pamiêtaæ o nadaniu odpowiednich
+   praw dostêpu):
+
+            cat < fifo1 &             |            cat < fifo2 &
+            cat > fifo2               |            cat > fifo1
+
+   (ctrl-d koñczy wpisywanie).
+
+2. (PODLEGA ODBIOROWI - CZAS 2 TYGODNIE)
+
+   Utworzyæ parê skryptów klient-serwer komunikuj¹c¹ siê przez parê ³¹cz nazwanych.
+   Nazwy ³¹cz: .../klientfifo i .../serwerfifo . Klient wpisuje do ³¹cza po stronie
+   serwera: a) swoj¹ wartoœæ $HOME ; b) jedn¹ liczbê ca³kowit¹. Serwer oblicza
+   pewn¹ funkcjê arytmetyczn¹ i wynik wstawia do ³¹cza po stronie klienta.
+
+   Skrypt klienta otrzymuje dwa argumenty wywo³ania: a) liczbê do wys³ania;
+   b) nazwê konta, na którym dzia³a serwer. Klient dzia³a tylko jednorazowo (nie
+   w pêtli).
+
+   Serwer powinien byæ serwerem wspó³bie¿nym, czyli jego g³ówny proces powinien
+   jedynie pobieraæ dane z kolejki i przekazywaæ je do obs³ugi swoim kolejnym
+   procesom potomnym, które obliczaj¹ wynik i odsy³aj¹ bezpoœrednio do klienta,
+   a nastêpnie koñcz¹ dzia³anie.
+
+   Zapewniæ w programie serwera przechwytywanie sygna³ów zwi¹zanych odpowiednio
+   z wylogowaniem i wy³¹czeniem okna (trap "" SIGHUP oraz trap "" SIGTERM), tak,
+   aby móg³ dzia³aæ przez ca³y czas. Prawid³owe zakoñczenie pracy serwera
+   powinno nastêpowaæ po przechwyceniu sygna³u SIGUSR1.
+
+   Uwaga: jednym z podstawowych problemów, jakie nale¿y rozwi¹zaæ w skrypcie
+          serwera, jest mo¿liwoœæ przerwania wykonywania funkcji odczytu z ³¹cza
+          przez proces rodzicielski wskutek (asynchronicznego) otrzymania sygna³u
+          SIGCHLD od któregoœ z koñcz¹cych pracê potomków.
