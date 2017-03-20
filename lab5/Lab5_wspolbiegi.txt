@@ -1,0 +1,41 @@
+OPEROWANIE NA KOLEJKACH FIFO W JÊZYKU C
+
+1. (PODLEGA ODBIOROWI - CZAS 2 TYGODNIE)
+
+   Napisaæ program serwera prostej wielodostêpnej bazy danych oraz program klienta
+   tej us³ugi.
+
+   Baza danych - tablica o rozmiarze 20 elementów, zawieraj¹ca struktury:
+   {int ID; char *nazwisko;} (maksymalna d³ugoœæ nazwiska - 20 znaków wraz
+   z koñcz¹cym znakiem pustym), tworzona i wype³niana statycznie przez program
+   serwera. Serwer odbiera ze swojej kolejki wejœciowej zapytanie zawieraj¹ce ID
+   i odsy³a do kolejki klienta odpowiadaj¹ce mu nazwisko lub komunikat "Nie ma",
+   jeœli nie ma w tablicy takiego ID.
+
+
+   Struktura komunikatu od klienta do serwera:
+
+   ------------------------------------------------ ............ -----------
+   |       int        |       int       |    ³añcuch (zmienna d³ugoœæ)     |
+   ------------------------------------------------ ............ -----------
+    d³ugoœæ pozosta³ej         ID                  $HOME klienta
+    czêœci komunikatu
+
+
+   Struktura komunikatu od serwera do klienta:
+
+   ------------------------------ ............. -----------
+   |       int        |     ³añcuch (zmienna d³ugoœæ)     |
+   ------------------------------ ............. -----------
+    d³ugoœæ pozosta³ej              odpowiedŸ
+    czêœci komunikatu
+
+
+   Nazwa kolejki odbiorczej serwera: serwerfifo .
+   Nazwa kolejki odbiorczej klienta: klientfifo .
+
+   Serwer dzia³a w pêtli nieskoñczonej, klient tylko jednorazowo (pytanie -
+   odpowiedŸ).
+
+   UWAGA: zapewniæ niepodzielnoœæ wysy³ania komunikatów (u¿yæ pojedynczego
+          wywo³ania funkcji write() do wys³ania ca³ego komunikatu)!
