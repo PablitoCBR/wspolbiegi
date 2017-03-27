@@ -5,4 +5,5 @@ Programy z przedmiotu
 2. [Lab2 - KOMUNIKACJA PRZEZ WSPÓŁDZIELONE PLIKI W PROGRAMACH (Język C)](https://github.com/pcendrowski/wspolbiegi/tree/master/lab2)
 3. [Lab3 - PROSTE MECHANIZMY KOORDYNACJI PROCESÓW W BASH'U](https://github.com/pcendrowski/wspolbiegi/tree/master/lab3)
 4. [Lab4 - KOLEJKI FIFO I SYGNAŁY W BASH'U](https://github.com/pcendrowski/wspolbiegi/tree/master/lab4)
-4. [Lab5 - OPEROWANIE NA KOLEJKACH FIFO W JĘZYKU C](https://github.com/pcendrowski/wspolbiegi/tree/master/lab5)
+5. [Lab5 - OPEROWANIE NA KOLEJKACH FIFO W JĘZYKU C](https://github.com/pcendrowski/wspolbiegi/tree/master/lab5)
+6. [Lab6 - KOLEJKI KOMUNIKATÓW (JĘZYK C)](https://github.com/pcendrowski/wspolbiegi/tree/master/lab6)
