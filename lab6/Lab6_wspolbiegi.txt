@@ -1,0 +1,21 @@
+KOLEJKI KOMUNIKATÓW
+
+1. Obejrzeæ parê programów przyk³adowych za³¹czonych do Wyk³adu 8. Zast¹piæ
+   ustalony numer klucza (10) numerem wygenerowanym przez funkcjê ftok()
+   (przeczytaæ najpierw jej opis), skompilowaæ programy i uruchomiæ.
+
+2. Przeczytaæ opisy i wypróbowaæ dzia³anie poleceñ ipcs i ipcrm.
+
+3. (PODLEGA ODBIOROWI - CZAS 2 TYGODNIE)
+
+   Utworzyæ program serwera udostêpniaj¹cego dwie kolejki komunikatów:
+   wejœciow¹ i wyjœciow¹, oraz program klienta przesy³aj¹cego pojedyncze
+   zapytanie z PID-em swojego procesu jako identyfikatorem komunikatu,
+   a nastêpnie odbieraj¹cego odpowiedŸ z drugiej kolejki.
+
+   Serwer realizuje funkcjê s³ownika polsko-angielskiego (otrzymuje ³añcuch
+   zawieraj¹cy s³owo polskie i odsy³a odpowiadaj¹ce mu s³owo angielskie lub
+   komunikat "Nie znam takiego s³owa").
+
+   UWAGA: przyj¹æ, ¿e numery (klucze) obu kolejek serwera s¹ ustalone
+          i znane klientowi.
