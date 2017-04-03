@@ -7,3 +7,4 @@ Programy z przedmiotu
 4. [Lab4 - KOLEJKI FIFO I SYGNAŁY W BASH'U](https://github.com/pcendrowski/wspolbiegi/tree/master/lab4)
 5. [Lab5 - OPEROWANIE NA KOLEJKACH FIFO W JĘZYKU C](https://github.com/pcendrowski/wspolbiegi/tree/master/lab5)
 6. [Lab6 - KOLEJKI KOMUNIKATÓW (JĘZYK C)](https://github.com/pcendrowski/wspolbiegi/tree/master/lab6)
+7. [Lab7 - PAMIĘĆ DZIELONA I SEMAFORY (JĘZYK C)](https://github.com/pcendrowski/wspolbiegi/tree/master/lab7)
