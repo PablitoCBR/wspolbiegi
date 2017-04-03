@@ -1,0 +1,41 @@
+PAMIÊÆ DZIELONA I SEMAFORY
+
+1. Utworzyæ niedu¿y segment pamiêci dzielonej i do³¹czyæ go w dwóch ró¿nych
+   miejscach do przestrzeni adresowej procesu. Sprawdziæ, ¿e umieszczona w nim
+   wartoœæ jest widoczna pod dwoma ró¿nymi adresami:
+
+                                                      ---------------------
+                                                      | *x                |
+                                                     /|                   |
+                                                    / |                   |
+                                                   /  |                   |
+                                          zapisy  /   ---------------------
+                                        i odczyty \   - - - - - - - - - - -
+                                                   \  | *y                |
+                                                    \ |                   |
+                                                     \|                   |
+                                                      |                   |
+                                                      - - - - - - - - - - -
+        Menu programu (w pêtli):
+
+       - zapis *x
+       - zapis *y
+       - odczyt *x
+       - odczyt *y
+       - koniec programu
+
+2. (PODLEGA ODBIOROWI - CZAS 2 TYGODNIE)
+
+   Zaprogramowac grê w "kó³ko i krzy¿yk" dla dwóch graczy (plansza - tablica
+   znakowa 3x3, wype³niona spacjami, znakami 'X' lub 'O'). Umieœciæ planszê
+   w pamiêci dzielonej, zapewniæ synchronizacjê dostêpu przy u¿yciu pary
+   semaforów.
+
+   Nale¿y ulepszyæ rozwi¹zanie synchronizacji podane na wyk³adzie i zrobiæ
+   JEDEN (uniwersalny) program do u¿ytku obu graczy - wstêpn¹ rywalizacjê
+   o wykonanie pierwszego ruchu (i u¿ywanie znaków 'X') wygrywa ten, kto
+   jako pierwszy utworzy tablicê semaforów (wskazówka: ...O_CREAT|O_EXCL ...).
+
+   Program powinien sprawdzaæ prawid³owoœæ ruchów (wykluczaæ pola ju¿ zajête
+   i poza plansz¹), rozpoznawaæ sytuacjê wygranej/przegranej/remisu i wyœwietlaæ
+   obu graczom odpowiednie komunikaty.
