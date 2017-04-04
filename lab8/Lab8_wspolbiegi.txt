@@ -1,0 +1,15 @@
+GNIAZDA BSD
+
+1. (PODLEGA ODBIOROWI - CZAS 2 TYGODNIE)
+
+   Na komputerze o adresie internetowym 153.19.1.202 uruchomiony jest serwer
+   prostej funkcji arytmetycznej, który przez port UDP o numerze 5000
+   przyjmuje jedn¹ liczbê ca³kowit¹ czterobajtow¹ (int) i w odpowiedzi
+   odsy³a jedn¹ liczbê tego samego typu. Napisaæ program klienta, który
+   komunikuje siê z tym serwerem i odgadn¹æ, jak¹ funkcjê oblicza serwer.
+
+   UWAGA: pamiêtaæ o przekszta³caniu danych i adresu do postaci sieciowej
+          i na odwrót (funkcje htonl() i ntohl() ).
+
+   Treœæ programu serwera (z wyciêt¹ realizowan¹ funkcj¹) jest dostêpny na
+   komputerze sigma w /home/pracinf/jsk/manta/Public/serverstud.c .
