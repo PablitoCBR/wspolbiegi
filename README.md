@@ -8,3 +8,4 @@ Programy z przedmiotu
 5. [Lab5 - OPEROWANIE NA KOLEJKACH FIFO W JĘZYKU C](https://github.com/pcendrowski/wspolbiegi/tree/master/lab5)
 6. [Lab6 - KOLEJKI KOMUNIKATÓW (JĘZYK C)](https://github.com/pcendrowski/wspolbiegi/tree/master/lab6)
 7. [Lab7 - PAMIĘĆ DZIELONA I SEMAFORY (JĘZYK C)](https://github.com/pcendrowski/wspolbiegi/tree/master/lab7)
+8. [Lab8 - GNIAZDA BSD (JĘZYK C)](https://github.com/pcendrowski/wspolbiegi/tree/master/lab8)
