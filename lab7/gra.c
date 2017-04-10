@@ -5,180 +5,114 @@
 #include <sys/ipc.h>
 #include <sys/sem.h>
 #include <sys/shm.h>
-#include <signal.h>
 
-#define klucz 5535
+#define klucz 15
+#define GAMER1 'X'
+#define GAMER2 'O'
 
-int* planszaW;
+int pamiec, semafor;
+char *adres;
+char symbol;
 
-int pamiec, semafory;
-int wynik = -2;
-
-
-void eraseTable(){
-	int i, j;
-	for(i = 0; i < 3; i++){
-		for(j = 0; j < 3; j++){
-			*(planszaW + i * 3 + j) = 0;
-		}
-	}
+void end()
+   {
+      semctl(semafor,0,IPC_RMID,0);
+      shmdt(adres);
+      shmctl(pamiec,IPC_RMID,0);
+      exit(0);
+   }
+void printPol(){
+  printf("  0|1|2\n");
+  for(int i = 0; i< 3; i++){
+    printf("%d|",i);
+    for(int j = 0; j < 3; j++){
+      printf("%c|",adres[i*3+j]);
+    }
+    printf("\n");
+  }
 }
-
-void drawTable(){
-	system("clear");
-	int i, j;
-	printf(" 1 2 3\n");
-	for(i = 0; i < 3; i++){
-		printf("%c", 'A' + i);
-		for(j = 0; j < 3; j++){
-			printf("|");
-			int val = *(planszaW + i * 3 + j);
-			switch(val){
-				case -1:
-					printf("X");
-					break;
-				case 1:
-					printf("O");
-					break;
-				default:
-					printf(" ");
-					break;
-			}
-		}
-		printf("|\n");
-	}
+void heuristic(){
+  for(int i = 0; i < 3; i++){
+    if(*(adres+i) == *(adres+i+3) && *(adres+i) == *(adres+i+6) && (*(adres+i) == GAMER1 || *(adres+i) == GAMER2)){
+      printf("%c wygral\n",*(adres+i));
+      end();
+    }
+    if(*(adres+i*3) == *(adres+i*3+1) && *(adres+i*3) == *(adres+i*3+2) && (*(adres+i*3) == GAMER1 || *(adres+i*3) == GAMER2)){
+      printf("%c wygral\n",*(adres+i*3));
+      end();
+    }
+  }
+  if(*adres == *(adres+4) && *adres == *(adres+8) && (*adres == GAMER1 || *adres == GAMER2)){
+    printf("%c wygral\n",*adres);
+    end();
+  }
+  if(*(adres+2) == *(adres+4) && *(adres+2) == *(adres+6) && (*(adres+2) == GAMER1 || *(adres+2) == GAMER2)){
+    printf("%c wygral\n",*(adres+2));
+    end();
+  }
+  for (size_t i = 0; i < 9; i++) {
+    if(*(adres+i) == ' '){
+      return;
+    }
+  }
+  printf("REMIS\n");
+  end();
 }
+void read()
+   {
+      int num=-1;
+      printPol();
+      while(num == -1){
+        printf("Podaj liczbe od 0 do 8 (nr pola):" );
+        scanf("%d", &num);
+        if(num>=0 && num <9){
+          if(*(adres+num) != GAMER1 && *(adres+num) != GAMER2){
+              *(adres+num) = symbol;
+          } else{
+              printf("Pole już zajęte\n");
+              num = -1;
+          }
+        }
+      }
+      printPol();
+   }
 
-int isGameEnd(){
-	int win[8];
-	int i, j, n;
-	for(n = 0; n < 8; n++){
-		win[n] = 0;
-	}
-	n = 0;
-	for(i = 0; i < 3; i++){
-		for(j = 0; j < 3; j++){
-			int val = *(planszaW + i * 3 + j);
-			win[0 + i] += val;
-			win[3 + j] += val;
-			if(i == j){
-				win[6] += val;
-			}else if(2-i == j){
-				win[7] += val;
-			}
-			if(val != 0){
-				n++;
-			}
-		}
-	}
-	for(n = 0; n < 8; n++){
-		if(win[n] == 3){
-			return 1;
-		}else if(win[n] == -3){
-			return -1;
-		}
-	}
-	if(n == 9){
-		return 0;
-	}
-	return -2;
-}
-
-void koniec(int player, int gameResult){
-	if(player != 0){
-		if(player == gameResult){
-			printf("Wygrales\n");
-		}else if(gameResult == 0){
-			printf("Remis");
-		}else{
-			printf("Przegrales\n");
-		}
-	}
-	semctl(semafory, 0, IPC_RMID, 0);
-	shmdt(planszaW);
-	shmctl(pamiec, IPC_RMID, 0);
-	exit(0);
-}
-
-void zapisz(int n){
-	drawTable();
-	printf("Twoj ruch: ");
-	char x;
-	int y;
-	int ok = 0;
-	do {
-		int ix;
-		scanf("%c%d", &x, &y);
-		if(x == '\n'){
-		}else if(x < 'A' || x > 'C' || y < 1 || y > 3){
-			printf("Bledny ruch, podaj poprawny ruch [%d][%d]: ", (int)x, y);
-		}else{
-			int ix = (int)x - (int)'A';
-			y--;
-			int val = *(planszaW + ix * 3 + y);
-			if(val != -1 && val != 1){
-				*(planszaW + ix * 3 + y) = n;
-				ok = 1;
-			}else{
-				printf("Bledny ruch, podaj poprawny ruch: ");
-			}
-		}
-	} while(ok == 0);
-	drawTable();
-}
-
-void intHandler(int dummy) {
-	koniec(0, 0);
-}
-
-int main(){
-	printf("Witaj");
-	signal(SIGINT, intHandler);
-
-	struct sembuf operA1 = {0, -1, 0}, operA2 = {1, 1, 0}, *oper1, *oper2;
-	struct sembuf operB1 = {1, -1, 0}, operB2 = {0, 1, 0};
-
-	pamiec = shmget(klucz, 256, 0777 | IPC_CREAT);
-	planszaW = shmat(pamiec, 0, 0);
-
-	int player;
-
-	if((semafory = semget(klucz, 2, 0777 | IPC_CREAT | IPC_EXCL)) != -1){
-		printf(", grasz jako X, zaczynasz\n");
-		player = -1;
-
-		oper1 = &operA1;
-		oper2 = &operA2;
-
-		semctl(semafory, 0, SETVAL, 1);
-		semctl(semafory, 1, SETVAL, 0);
-	}else{
-		semafory = semget(klucz, 2, 0777 | IPC_CREAT);
-		
-		printf(", grasz jako O, zaczekaj na ruch pierwszego gracza\n");
-		player = 1;
-		
-		oper1 = &operB1;
-		oper2 = &operB2;
-	}
-
-	while(1){
-		semop(semafory, oper1, 1);
-		wynik = isGameEnd();
-		if(wynik != -2){
-			drawTable();
-			koniec(player, wynik);
-			break;
-		}
-		zapisz(player);
-		wynik = isGameEnd();
-		if(wynik != -2){
-			drawTable();
-			koniec(player, wynik);
-			break;
-		}
-		semop(semafory, oper2, 1);
-	}
-
-	return 0;
-}
+int main()
+   {
+      struct sembuf oper0={0,-1,0},
+                    oper1={1,1,0},
+                    oper2={1,-1,0},
+                    oper3={0,1,0},
+                    * operX,
+                    * operO;
+      pamiec=shmget(klucz,256,0777|IPC_CREAT);
+      semafor=semget(klucz,2,0777|IPC_CREAT|IPC_EXCL);
+      if(semafor != -1){ // X
+        printf("!!!\n");
+        symbol = GAMER1;
+        operX = &oper0;
+        operO = &oper1;
+        semctl(semafor,0,SETVAL,1);
+        semctl(semafor,1,SETVAL,0);
+      } else{ // 0
+        semafor = semget(klucz,0,0777|IPC_CREAT);
+        symbol = GAMER2;
+        operX = &oper2;
+        operO = &oper3;
+      }
+      //printf("%d\n", semafor);  //Wyswietlanie nr procesu
+      printf("Grasz za %c\n", symbol );
+      adres=shmat(pamiec,0,0);
+      for(int i = 0; i<9; i++){
+        adres[i] = ' ';
+      };
+      while (1)
+         {
+            semop(semafor,operX,1);
+            heuristic();
+            read();
+            heuristic();
+            semop(semafor,operO,1);
+         }
+      return 0;
+   }
