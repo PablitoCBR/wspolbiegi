@@ -5,9 +5,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-void main(){
-	
-	printf("Witaj\n");
+int main(){
 	
 	struct sockaddr_in ip4addr;
 	bzero((char *) &ip4addr, sizeof(ip4addr));
@@ -30,13 +28,13 @@ void main(){
 	int buff = htonl(msg);
 	sendto(s, (char *)&buff, sizeof(buff), 0, (struct sockaddr*) &ip4addr, fromlen);
 
-	printf("Wiadomosc wyslana: [%d]\n", msg);
+	printf("Liczba wyslana do serwera: [%d]\n", msg);
 
 	int byte_count;
 	byte_count = recvfrom(s, (char *)&buff, sizeof(buff), 0, (struct sockaddr*) &ip4addr, &fromlen);
 	buff = ntohl(buff);
 	
-	printf("Liczba: %d\n", buff);
+	printf("Liczba otrzymana po obliczeniu przez funkcje na serwerze: %d\n", buff);
 }           
        
 
