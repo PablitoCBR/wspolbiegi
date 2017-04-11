@@ -61,6 +61,7 @@ void heuristic(){
 void read()
    {
       int num=-1;
+      system("clear");
       printPol();
       while(num == -1){
         printf("Podaj liczbe od 0 do 8 (nr pola):" );
@@ -74,6 +75,7 @@ void read()
           }
         }
       }
+      system("clear");
       printPol();
    }
 
@@ -100,7 +102,7 @@ int main()
         operX = &oper2;
         operO = &oper3;
       }
-      //printf("%d\n", semafor);  //Wyswietlanie nr procesu
+      
       printf("Grasz za %c\n", symbol );
       adres=shmat(pamiec,0,0);
       for(int i = 0; i<9; i++){
