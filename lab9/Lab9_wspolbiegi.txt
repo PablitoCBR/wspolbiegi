@@ -1,0 +1,26 @@
+BIBLIOTEKA FUNKCJI GRAFICZNYCH XLIB
+
+1. Obejrzeæ, skompilowaæ i wypróbowaæ dzia³anie dowolnego spoœród programów
+   graficznych przedstawionych na wyk³adzie. Zmieniaj¹c argument funkcji
+   XOpenDisplay() wymusiæ wyœwietlenie rysunku na monitorze jednego z s¹siadów.
+
+   UWAGA:
+
+   1) sprawdziæ przydzielone adresy IP i nazwy internetowe komputerów
+      w laboratorium;
+
+   2) przeczytaæ opis polecenia xhost i przy jego u¿yciu udzielaæ uprawnieñ
+      do wyœwietlania innym uczestnikom zajêæ.
+
+2. Napisaæ program, który wyœwietla na ekranie 10 ró¿nokolorowych koncentrycznych
+   kó³ o liniowo malej¹cych promieniach ("pawie oko").
+
+3. (PODLEGA ODBIOROWI - CZAS 2 TYGODNIE)
+
+   Napisaæ program, który wyœwietla kolorowe prostok¹ty na ekranach kilkorga
+   s¹siadów (adresy/nazwy internetowe podawane jako argumenty w linii poleceñ -
+   zmienna liczba), a nastêpnie (w oknie tekstowym) odnotowuje czasy (w sekundach),
+   po jakich je zgasz¹ (naciskaj¹c dowolny klucz na klawiaturze).
+
+   WSKAZÓWKA: utworzyæ w programie tyle procesów, ile zosta³o podanych argumentów.
+
