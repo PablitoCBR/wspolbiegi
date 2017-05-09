@@ -9,3 +9,4 @@ Programy z przedmiotu
 6. [Lab6 - KOLEJKI KOMUNIKATÓW (JĘZYK C)](https://github.com/pcendrowski/wspolbiegi/tree/master/lab6)
 7. [Lab7 - PAMIĘĆ DZIELONA I SEMAFORY (JĘZYK C)](https://github.com/pcendrowski/wspolbiegi/tree/master/lab7)
 8. [Lab8 - GNIAZDA BSD (JĘZYK C)](https://github.com/pcendrowski/wspolbiegi/tree/master/lab8)
+9. [Lab9 - BIBLIOTEKA FUNKCJI GRAFICZNYCH XLIB](https://github.com/pcendrowski/wspolbiegi/tree/master/lab9)
