@@ -1,0 +1,14 @@
+W¥TKI WED£UG NORMY POSIX
+
+1. Obejrzeæ, skompilowaæ i uruchomiæ program przyk³adowy podany na wyk³adzie
+   (pamiêtaæ o opcji -lpthread w poleceniu kompilacji).
+
+2. (PODLEGA ODBIOROWI - CZAS 2 TYGODNIE)
+
+   Napisaæ wielow¹tkowy program obliczaj¹cy wspó³bie¿nie wyznacznik macierzy
+   kwadratowej liczb ca³kowitych metod¹ podwyznaczników:
+
+   a) dla macierzy 4x4 (za 1 punkt);
+   b) rekurencyjnie dla macierzy nxn (n>=4) (za 2 punkty).
+
+   WSKAZÓWKA: dla podmacierzy o rozmiarze 3x3 skorzystaæ ze wzoru Sarrusa.
