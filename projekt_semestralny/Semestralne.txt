@@ -1,0 +1,29 @@
+WARUNKI ZALICZENIA ZADANIA SEMESTRALNEGO:
+
+1) zademonstrowanie dzia³aj¹cego programu (na dwóch lub wiêcej terminalach
+   graficznych w laboratorium) i wyjaœnienie jego konstrukcji;
+
+2) przys³anie na adres jsk@inf.ug.edu.pl skróconej dokumentacji programu
+   zawieraj¹cej:
+
+   a) imiê i nazwisko autora/autorki i sformu³owanie zadania;
+   b) merytoryczne uzasadnienie wyboru mechanizmu komunikacji miêdzyprocesowej
+      lub synchronizacji w¹tków (2 - 3 zdania);
+   c) opis u¿ytkowania programu (w tym wykaz sytuacji b³êdnych obs³ugiwanych
+      przez program);
+   d) pliki Ÿród³owe programu.
+
+KRYTERIA OCENY ZADANIA SEMESTRALNEGO (WED£UG MALEJ¥CEJ WA¯NOŒCI):
+
+1) prawid³owoœæ koordynacji procesów/w¹tków (ogólnie: poprawnoœæ
+   zaimplementowanego algorytmu);
+
+2) prawid³owoœæ i czytelnoœæ kodu programu;
+
+3) jakoœæ interfejsu u¿ytkownika (czytelnoœæ, ergonomia).
+
+WSZYSTKIE PROGRAMY POWINNY DYSPONOWAÆ GRAFICZNYM INTERFEJSEM U¯YTKOWNIKA
+UTWORZONYM W XLIB.
+
+CZAS ZALICZENIA ZADANIA SEMESTRALNEGO: DO OSTATNICH ZAJÊÆ (W£¥CZNIE)
+W TYM SEMESTRZE.
