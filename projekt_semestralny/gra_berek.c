@@ -154,6 +154,10 @@ int game(circle *circles, int id) {
    
    while (1)
    {
+	   XSetForeground(mydisplay, mygc, mycolor1.pixel);
+	   XFillRectangle(mydisplay, mywindow, mygc, 0, 0, 600, 600);
+	   overview_game(circles, id);
+	   usleep(20000);
 	   if(XPending(mydisplay) > 0) 
 		{
 		  XNextEvent(mydisplay,&myevent);
@@ -187,7 +191,6 @@ int game(circle *circles, int id) {
 
 				XSetForeground(mydisplay, mygc, mycolor1.pixel);
 				XFillRectangle(mydisplay, mywindow, mygc, 0, 0, 600, 600);
-				check_to_catch(circles, id);
 				overview_game(circles, id);
 				
 				//WYJSCIE Z PROGRAMU (KLAWISZ ESC)
@@ -214,9 +217,9 @@ int game(circle *circles, int id) {
 						{
 							XSetForeground(mydisplay,mygc,mycolor.pixel); 
 						}
-					  circles[id].y -= 5;
-					  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
-					  XFlush(mydisplay);
+					if(circles[id].y >= 5) circles[id].y -= 10;
+				  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
+				  XFlush(mydisplay);
 				  }
 				  
 				  //STRZALKA W PRAWO
@@ -232,7 +235,7 @@ int game(circle *circles, int id) {
 						{
 							XSetForeground(mydisplay,mygc,mycolor.pixel); 
 						}
-					  circles[id].x += 5;
+					  if(circles[id].x <= 535) circles[id].x += 10;
 					  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
 					  XFlush(mydisplay);
 				  }
@@ -250,7 +253,7 @@ int game(circle *circles, int id) {
 						{
 							XSetForeground(mydisplay,mygc,mycolor.pixel); 
 						}
-					  circles[id].x -= 5;
+					  if(circles[id].x >= 5) circles[id].x -= 10;
 					  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
 					  XFlush(mydisplay);
 				  }
@@ -268,7 +271,7 @@ int game(circle *circles, int id) {
 						{
 							XSetForeground(mydisplay,mygc,mycolor.pixel); 
 						}
-					  circles[id].y += 5;
+					  if(circles[id].y <= 535) circles[id].y += 10;
 					  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
 					  XFlush(mydisplay);
 				  }
