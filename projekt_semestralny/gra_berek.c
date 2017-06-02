@@ -24,7 +24,7 @@ Visual *myvisual;
 int mydepth;
 int myscreen;
 Colormap mycolormap;
-XColor mycolor,mycolor1, mycolor2, mycolor3, dummy;
+XColor mycolor, mycolor0, mycolor1, mycolor2, mycolor3, mycolor4, mycolor5, dummy;
 XEvent myevent;
 char *myname;
 
@@ -81,13 +81,13 @@ int new_player(circle *circles) {
 			break;
 		}
 	}
-	  return i;
+	return i;
 }
 
 //Funkcja wyswietlajaca pozostalych graczy (kolorowanie: berek = czerwony , inny gracz = czarny)
 void overview_game(circle *circles, int id) {
 	
-	int i; 
+	int i;
 	
 	for(i=0; i<5; i++) 
 	{
@@ -99,12 +99,32 @@ void overview_game(circle *circles, int id) {
 			
 			if(circles[i].berek == true) //Jesli berek to czerwony
 			{ 
-				XSetForeground(mydisplay,mygc,mycolor3.pixel); 
+				XSetForeground(mydisplay,mygc,mycolor1.pixel);
+				 
 			}
 			
-			else  //Inni gracze to czarny
+			else  //Inni gracze
 			{ 
-				XSetForeground(mydisplay,mygc,mycolor2.pixel); 
+				if(circles[i].ID == 0 && circles[i].berek == false) {
+					XSetForeground(mydisplay,mygc,mycolor0.pixel); 
+					
+				}
+				if(circles[i].ID == 1 && circles[i].berek == false) {
+					XSetForeground(mydisplay,mygc,mycolor2.pixel);
+					
+				}
+				if(circles[i].ID == 2 && circles[i].berek == false) {
+					XSetForeground(mydisplay,mygc,mycolor3.pixel);
+					
+				}
+				if(circles[i].ID == 3 && circles[i].berek == false) {
+					XSetForeground(mydisplay,mygc,mycolor4.pixel);
+					
+				}
+				if(circles[i].ID == 4 && circles[i].berek == false) {
+					XSetForeground(mydisplay,mygc,mycolor5.pixel);
+					
+				}
 			}
 			
 			XFillArc(mydisplay, mywindow, mygc, circles[i].x, circles[i].y, circles[i].size, circles[i].size, 0, 360*64);
@@ -154,7 +174,7 @@ int game(circle *circles, int id) {
    
    while (1)
    {
-	   XSetForeground(mydisplay, mygc, mycolor1.pixel);
+	   XSetForeground(mydisplay, mygc, mycolor.pixel);
 	   XFillRectangle(mydisplay, mywindow, mygc, 0, 0, 600, 600);
 	   overview_game(circles, id);
 	   usleep(20000);
@@ -164,34 +184,16 @@ int game(circle *circles, int id) {
 		  switch (myevent.type)
 		  {
 			 case Expose:
-				  XSetFunction(mydisplay,mygc,GXcopy);
-				  overview_game(circles, id);
-			
-				  if(circles[id].berek == true) //Jesli status pola "berek" naszego gracza jest prawdziwy jestesmy berkiem i otrzymujemy kolor czerwony
-				  { 
-					  XSetForeground(mydisplay,mygc,mycolor3.pixel); 
-				  }
-				  else  //Jesli nie jestesmy berkiem otrzymujemy kolor niebieski
-				  { 
-					  XSetForeground(mydisplay,mygc,mycolor.pixel); 
-				  } 
 				  
 				  //PUNKT STARTOWY
 				  circles[id].x = 250;
 				  circles[id].y = 250;
 				  circles[id].size = 60;
 				  
-				  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
-				  XFlush(mydisplay);
 				  break;
-
 			  
 				//OBSLUGA KLAWISZY
 			    case KeyPress:
-
-				XSetForeground(mydisplay, mygc, mycolor1.pixel);
-				XFillRectangle(mydisplay, mywindow, mygc, 0, 0, 600, 600);
-				overview_game(circles, id);
 				
 				//WYJSCIE Z PROGRAMU (KLAWISZ ESC)
 				if(myevent.xkey.keycode == 0x09) 
@@ -207,73 +209,45 @@ int game(circle *circles, int id) {
 				  //STRZALKA W GORE
 				  if(myevent.xkey.keycode == 0x6f) {
 					  check_to_catch(circles, id);
-					  XSetForeground(mydisplay,mygc,mycolor1.pixel);
+					  XSetForeground(mydisplay,mygc,mycolor.pixel);
 					  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
-					  if(circles[id].berek == true) 
-						{
-							XSetForeground(mydisplay,mygc,mycolor3.pixel); 
-						}
-					  else 
-						{
-							XSetForeground(mydisplay,mygc,mycolor.pixel); 
-						}
+					  
 					if(circles[id].y >= 5) circles[id].y -= 10;
-				  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
-				  XFlush(mydisplay);
+					XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
+					XFlush(mydisplay);
 				  }
 				  
 				  //STRZALKA W PRAWO
 				  if(myevent.xkey.keycode == 0x72) {
 					  check_to_catch(circles, id);
-					  XSetForeground(mydisplay,mygc,mycolor1.pixel);
+					  XSetForeground(mydisplay,mygc,mycolor.pixel);
 					  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
-					  if(circles[id].berek == true) 
-						{ 
-							XSetForeground(mydisplay,mygc,mycolor3.pixel); 
-						}
-					  else 
-						{
-							XSetForeground(mydisplay,mygc,mycolor.pixel); 
-						}
-					  if(circles[id].x <= 535) circles[id].x += 10;
-					  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
-					  XFlush(mydisplay);
+					  
+					if(circles[id].x <= 535) circles[id].x += 10;
+					XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
+					XFlush(mydisplay);
 				  }
 				  
 				  //STRZALKA W LEWO
 				  if(myevent.xkey.keycode == 0x71) {
 					  check_to_catch(circles, id);
-					  XSetForeground(mydisplay,mygc,mycolor1.pixel);
+					  XSetForeground(mydisplay,mygc,mycolor.pixel);
 					  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
-					  if(circles[id].berek == true) 
-						{
-							XSetForeground(mydisplay,mygc,mycolor3.pixel); 
-						}
-					  else 
-						{
-							XSetForeground(mydisplay,mygc,mycolor.pixel); 
-						}
-					  if(circles[id].x >= 5) circles[id].x -= 10;
-					  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
-					  XFlush(mydisplay);
+						
+					if(circles[id].x >= 5) circles[id].x -= 10;
+					XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
+					XFlush(mydisplay);
 				  }
 				  
 				  //STRZALKA W DOL
 				  if(myevent.xkey.keycode == 0x74) {
 					  check_to_catch(circles, id);
-					  XSetForeground(mydisplay,mygc,mycolor1.pixel);
+					  XSetForeground(mydisplay,mygc,mycolor.pixel);
 					  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
-					  if(circles[id].berek == true) 
-						{
-							XSetForeground(mydisplay,mygc,mycolor3.pixel); 
-						}
-					  else 
-						{
-							XSetForeground(mydisplay,mygc,mycolor.pixel); 
-						}
-					  if(circles[id].y <= 535) circles[id].y += 10;
-					  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
-					  XFlush(mydisplay);
+					  
+					if(circles[id].y <= 535) circles[id].y += 10;
+					XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
+					XFlush(mydisplay);
 				  }
 				break;
 		}
@@ -320,10 +294,14 @@ int main(int argc, char **argv) {
                             CWBackPixel|CWOverrideRedirect,&mywindowattributes);
     XSelectInput(mydisplay,mywindow,ExposureMask|KeyPressMask|KeyReleaseMask|ButtonPressMask|ButtonMotionMask);
     mycolormap = DefaultColormap(mydisplay,myscreen);
-         XAllocNamedColor(mydisplay,mycolormap,"blue",&mycolor,&dummy);
-         XAllocNamedColor(mydisplay,mycolormap,"white",&mycolor1,&dummy);
-         XAllocNamedColor(mydisplay,mycolormap,"black",&mycolor2,&dummy);
-		 XAllocNamedColor(mydisplay,mycolormap,"red",&mycolor3,&dummy);
+         XAllocNamedColor(mydisplay,mycolormap,"white",&mycolor,&dummy);   //tlo
+         XAllocNamedColor(mydisplay,mycolormap,"red",&mycolor1,&dummy);    //berek
+         XAllocNamedColor(mydisplay,mycolormap,"orange",&mycolor0,&dummy); //1 gracz (bez berka)
+         XAllocNamedColor(mydisplay,mycolormap,"yellow",&mycolor2,&dummy); //2 gracz 
+		 XAllocNamedColor(mydisplay,mycolormap,"green",&mycolor3,&dummy);  //3 gracz
+		 XAllocNamedColor(mydisplay,mycolormap,"blue",&mycolor4,&dummy);   //4 gracz
+		 XAllocNamedColor(mydisplay,mycolormap,"black",&mycolor5,&dummy);  //5 gracz
+		 
          myname="Gra BEREK";
     XStoreName(mydisplay,mywindow,myname);
     XMapWindow(mydisplay,mywindow);
