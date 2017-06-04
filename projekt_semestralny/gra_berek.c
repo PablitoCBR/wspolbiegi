@@ -45,36 +45,34 @@ typedef struct circle {
 }circle;
 
 
-//Numer biezacego gracza
+//Numer biezacego gracza, tym ktorym sterujemy
 int id;
 
-//Funkcja przydzielajaca ID graczom. ID==0 wtedy zostaje berkiem (zawsze pierwszy gracz) 
-void player_status(circle *circles)
+//Funkcja przydzielajaca ID graczom. ID==1 wtedy zostaje berkiem (zawsze pierwszy gracz) 
+void firts_player_status(circle *circles)
 {
 	int i; 
 	
-	for(i = 0; i < 5; i++)
+	for(i = 1; i < 6; i++)
 	{
 		circles[i].ID = i;
 		circles[i].active_player = false;
 		circles[i].berek = false;
 		
-		if(circles[i].ID == 0) 
+		if(circles[i].ID == 1) 
 		{
 			circles[i].berek = true;
 		}
 	}
 }
 
-//Funkcja dodajaca nowego gracza do gry (zmiana statusu)
+//Funkcja dodajaca nowego gracza do gry (zmiana statusu active_player)
 int new_player(circle *circles) {
 	
 	int i;
 	
-	for(i=0; i<5; i++) 
+	for(i=1; i<6; i++) 
 	{
-		circles[i].ID = i;
-		
 		if(circles[i].active_player == false) 
 		{
 			circles[i].active_player = true;
@@ -84,12 +82,19 @@ int new_player(circle *circles) {
 	return i;
 }
 
-//Funkcja wyswietlajaca pozostalych graczy (kolorowanie: berek = czerwony , inny gracz = czarny)
+//Funkcja wyswietlajaca graczy (kolorowanie graczy)
 void overview_game(circle *circles, int id) {
 	
 	int i;
+	char napis[1];  //Numer przy graczu (jego ID)
 	
-	for(i=0; i<5; i++) 
+	if(id==6) {
+		printf("Nie mozesz dolaczyc do gry! Max liczba graczy to: %d\n", id-1);
+		}
+		
+	else {
+	
+	for(i=1; i<6; i++) 
 	{
 		if(circles[i].active_player == true) 
 		{
@@ -100,45 +105,56 @@ void overview_game(circle *circles, int id) {
 			if(circles[i].berek == true) //Jesli berek to czerwony
 			{ 
 				XSetForeground(mydisplay,mygc,mycolor1.pixel);
-				 
+				sprintf(napis, "%d", circles[i].ID);
+				XDrawString(mydisplay, mywindow, mygc, circles[i].x, circles[i].y, napis, strlen(napis));	 
 			}
 			
-			else  //Inni gracze
-			{ 
-				if(circles[i].ID == 0 && circles[i].berek == false) {
-					XSetForeground(mydisplay,mygc,mycolor0.pixel); 
-					
-				}
+			//Inni gracze (pozostale kolory)
+				
 				if(circles[i].ID == 1 && circles[i].berek == false) {
-					XSetForeground(mydisplay,mygc,mycolor2.pixel);
+					XSetForeground(mydisplay,mygc,mycolor0.pixel);
+					sprintf(napis, "%d", circles[i].ID);
+				    XDrawString(mydisplay, mywindow, mygc, circles[i].x, circles[i].y, napis, strlen(napis)); 
 					
 				}
 				if(circles[i].ID == 2 && circles[i].berek == false) {
-					XSetForeground(mydisplay,mygc,mycolor3.pixel);
+					XSetForeground(mydisplay,mygc,mycolor2.pixel);
+					sprintf(napis, "%d", circles[i].ID);
+				    XDrawString(mydisplay, mywindow, mygc, circles[i].x, circles[i].y, napis, strlen(napis));
 					
 				}
 				if(circles[i].ID == 3 && circles[i].berek == false) {
-					XSetForeground(mydisplay,mygc,mycolor4.pixel);
+					XSetForeground(mydisplay,mygc,mycolor3.pixel);
+					sprintf(napis, "%d", circles[i].ID);
+				    XDrawString(mydisplay, mywindow, mygc, circles[i].x, circles[i].y, napis, strlen(napis));
 					
 				}
 				if(circles[i].ID == 4 && circles[i].berek == false) {
-					XSetForeground(mydisplay,mygc,mycolor5.pixel);
+					XSetForeground(mydisplay,mygc,mycolor4.pixel);
+					sprintf(napis, "%d", circles[i].ID);
+				    XDrawString(mydisplay, mywindow, mygc, circles[i].x, circles[i].y, napis, strlen(napis));
 					
 				}
+				if(circles[i].ID == 5 && circles[i].berek == false) {
+					XSetForeground(mydisplay,mygc,mycolor5.pixel);
+					sprintf(napis, "%d", circles[i].ID);
+				    XDrawString(mydisplay, mywindow, mygc, circles[i].x, circles[i].y, napis, strlen(napis));
+					
+				}
+			
+				XFillArc(mydisplay, mywindow, mygc, circles[i].x, circles[i].y, circles[i].size, circles[i].size, 0, 360*64);
+				XFlush(mydisplay);
+			
 			}
-			
-			XFillArc(mydisplay, mywindow, mygc, circles[i].x, circles[i].y, circles[i].size, circles[i].size, 0, 360*64);
-			XFlush(mydisplay);
-			
 		}
 	}
 }
-//Ilosc aktywnych graczy
+//Ilosc "aktywnych" graczy
 int number_of_players(circle *circles) {
 	
 	int i, number_players=0; 
 	
-	for(i=0; i<5; i++) 
+	for(i=1; i<6; i++) 
 	{
 		if(circles[i].active_player == true) 
 		{
@@ -153,9 +169,9 @@ void check_to_catch(circle *circles, int id) {
 	
 	int i;
 	
-	for(i=0; i<5; i++) 
+	for(i=1; i<6; i++) 
 	{
-	   if(circles[id].active_player == true && i != id && number_of_players(circles)>1) //Jesli graczy jest wiecej niz 1
+	   if(circles[id].active_player == true && i != id && number_of_players(circles)>1 && circles[id].berek == true) //Jesli graczy jest wiecej niz 1 i nasz gracz to berek (tylko w takim wypadku nastapic ma zmiana)
 	   {
 			if(circles[id].x >= circles[i].x-circles[i].size && circles[id].x <= circles[i].x+circles[i].size && circles[id].y >= circles[i].y-circles[i].size && circles[id].y <= circles[i].y+circles[i].size) 
 			{
@@ -164,7 +180,6 @@ void check_to_catch(circle *circles, int id) {
 				circles[i].berek = true;
 				circles[id].berek = false;
 			}
-			break;
 	   }
 	}
 }
@@ -260,7 +275,7 @@ int main(int argc, char **argv) {
 
 	circle *adres;
 
-	id = 0;
+	id = 1;
 	pamiec = shmget(SEM_ID, 1024, 0777|IPC_CREAT|IPC_EXCL);
 
 	if(pamiec == -1) 
@@ -272,9 +287,9 @@ int main(int argc, char **argv) {
 
 	adres = shmat(pamiec, 0, 0);
 
-	if(id == 0) 
+	if(id == 1) 
 	{
-		player_status(adres);
+		firts_player_status(adres);
 	}
 	
 	id = new_player(adres);
@@ -296,7 +311,7 @@ int main(int argc, char **argv) {
     mycolormap = DefaultColormap(mydisplay,myscreen);
          XAllocNamedColor(mydisplay,mycolormap,"white",&mycolor,&dummy);   //tlo
          XAllocNamedColor(mydisplay,mycolormap,"red",&mycolor1,&dummy);    //berek
-         XAllocNamedColor(mydisplay,mycolormap,"orange",&mycolor0,&dummy); //1 gracz (bez berka)
+         XAllocNamedColor(mydisplay,mycolormap,"orange",&mycolor0,&dummy); //1 gracz (kolor dla 1 gracza gdy nie jest berkiem)
          XAllocNamedColor(mydisplay,mycolormap,"yellow",&mycolor2,&dummy); //2 gracz 
 		 XAllocNamedColor(mydisplay,mycolormap,"green",&mycolor3,&dummy);  //3 gracz
 		 XAllocNamedColor(mydisplay,mycolormap,"blue",&mycolor4,&dummy);   //4 gracz
