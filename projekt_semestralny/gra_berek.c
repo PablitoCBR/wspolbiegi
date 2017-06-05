@@ -187,12 +187,13 @@ void check_to_catch(circle *circles, int id) {
 //Funkcja obslugujaca rozgrywke, sterowanie, wyjscie z programu
 int game(circle *circles, int id) {
    
+   int xw, yw;
    while (1)
    {
 	   XSetForeground(mydisplay, mygc, mycolor.pixel);
 	   XFillRectangle(mydisplay, mywindow, mygc, 0, 0, 600, 600);
 	   overview_game(circles, id);
-	   usleep(20000);
+	   usleep(5000);
 	   if(XPending(mydisplay) > 0) 
 		{
 		  XNextEvent(mydisplay,&myevent);
@@ -206,6 +207,63 @@ int game(circle *circles, int id) {
 				  circles[id].size = 60;
 				  
 				  break;
+			  
+			   
+			case ButtonPress:
+				
+              xw=myevent.xbutton.x;
+              
+              yw=myevent.xbutton.y;
+              
+              check_to_catch(circles, id);
+			  XSetForeground(mydisplay,mygc,mycolor.pixel);
+			  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
+  
+			  if(myevent.xbutton.x == circles[id].x+circles[id].size && myevent.xbutton.y == circles[id].y+circles[id].size) { 
+					circles[id].x = xw;
+					circles[id].y = yw;
+				}
+             
+              XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
+			  XFlush(mydisplay);
+            
+              break;
+
+			case MotionNotify:
+         
+              xw=myevent.xmotion.x;
+              
+              yw=myevent.xmotion.y;
+                
+              //BLOKADA RUCHU POZA PLANSZA PRZY STEROWANIU MYSZA - NIEDOPRACOWANE
+              //if(circles[id].y >= 5 && circles[id].x <= 535 && circles[id].x >= 5 && circles[id].y <= 535) {
+					
+					circles[id].x=xw;
+					circles[id].y=yw;
+			  //}
+			  
+			  /*else {
+				  
+					if(circles[id].x >= 5) {
+						circles[id].x += 1;
+					}
+					if(circles[id].x <= 535) {
+						circles[id].x -= 1;
+					}
+					if(circles[id].y <= 535) {
+						circles[id].y -= 1;
+					}
+					if(circles[id].y >= 5) {
+						circles[id].y += 1;
+					}	
+			  }*/
+             
+              check_to_catch(circles, id);
+			  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
+			  XFlush(mydisplay);
+
+              break;
+			  
 			  
 				//OBSLUGA KLAWISZY
 			    case KeyPress:
