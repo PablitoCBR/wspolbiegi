@@ -209,40 +209,40 @@ int game(circle *circles, int id) {
 				  break;
 			  
 			   
-			case ButtonPress:
+			 case ButtonPress:
 				
-              xw=myevent.xbutton.x;
+				xw=myevent.xbutton.x;
               
-              yw=myevent.xbutton.y;
+				yw=myevent.xbutton.y;
               
-              check_to_catch(circles, id);
-			  XSetForeground(mydisplay,mygc,mycolor.pixel);
-			  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
+				check_to_catch(circles, id);
+				XSetForeground(mydisplay,mygc,mycolor.pixel);
+				XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
   
-			  if(myevent.xbutton.x == circles[id].x+circles[id].size && myevent.xbutton.y == circles[id].y+circles[id].size) { 
+				if(myevent.xbutton.x == circles[id].x+circles[id].size && myevent.xbutton.y == circles[id].y+circles[id].size) { 
 					circles[id].x = xw;
 					circles[id].y = yw;
 				}
              
-              XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
-			  XFlush(mydisplay);
+				XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
+				XFlush(mydisplay);
             
-              break;
+				break;
 
-			case MotionNotify:
+			  case MotionNotify:
          
-              xw=myevent.xmotion.x;
+				xw=myevent.xmotion.x;
               
-              yw=myevent.xmotion.y;
+				yw=myevent.xmotion.y;
                 
-              //BLOKADA RUCHU POZA PLANSZA PRZY STEROWANIU MYSZA - NIEDOPRACOWANE
-              //if(circles[id].y >= 5 && circles[id].x <= 535 && circles[id].x >= 5 && circles[id].y <= 535) {
+				//BLOKADA RUCHU POZA PLANSZA PRZY STEROWANIU MYSZA - NIEDOPRACOWANE
+				//if(circles[id].y >= 5 && circles[id].x <= 535 && circles[id].x >= 5 && circles[id].y <= 535) {
 					
 					circles[id].x=xw;
 					circles[id].y=yw;
-			  //}
+				//}
 			  
-			  /*else {
+				/*else {
 				  
 					if(circles[id].x >= 5) {
 						circles[id].x += 1;
@@ -256,13 +256,13 @@ int game(circle *circles, int id) {
 					if(circles[id].y >= 5) {
 						circles[id].y += 1;
 					}	
-			  }*/
+				}*/
              
-              check_to_catch(circles, id);
-			  XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
-			  XFlush(mydisplay);
+				check_to_catch(circles, id);
+				XFillArc(mydisplay, mywindow, mygc, circles[id].x, circles[id].y, circles[id].size, circles[id].size, 0, 360*64);
+				XFlush(mydisplay);
 
-              break;
+				break;
 			  
 			  
 				//OBSLUGA KLAWISZY
